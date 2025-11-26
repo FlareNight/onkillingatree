@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Killing a Tree - Gieve Patel</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Pacifico&family=Satisfy&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-color: linear-gradient(135deg, #fcfcf9 0%, #e8f4e8 40%, #f5ede0 100%);
+            --bg-color-solid: #fcfcf9;
+            --surface-color: #fffff5;
+            --text-color: #134252;
+            --accent-color: #208c8d;
+            --border-color: #5e5240;
+            --leaf-color: rgba(94, 82, 64, 0.7);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --theme-icon: '☀️';
+            /* Neon Colors - Light Theme */
+            --neon-primary: #0efaff;
+            --neon-secondary: #39ff14;
+            --neon-accent: #ff006e;
+            --neon-alternate: #9d00ff;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-color: linear-gradient(135deg, #1f2121 0%, #1a3a3f 50%, #2a2a1f 100%);
+            --bg-color-solid: #1f2121;
+            --surface-color: #262828;
+            --text-color: #f5f5f5;
+            --accent-color: #32b8c6;
+            --border-color: #a7a9a9;
+            --leaf-color: rgba(50, 184, 198, 0.6);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --theme-icon: '🌙';
+            /* Neon Colors - Dark Theme */
+            --neon-primary: #00ffff;
+            --neon-secondary: #1eff00;
+            --neon-accent: #ff0080;
+            --neon-alternate: #0080ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Custom Scrollbar - Webkit (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #208c8d 0%, #26b8a0 100%);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(32, 140, 141, 0.4);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #26b8a0 0%, #2ed4b8 100%);
+            box-shadow: 0 0 12px rgba(32, 140, 141, 0.6), 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #32b8c6 0%, #50d4e0 100%);
+            box-shadow: 0 0 8px rgba(50, 184, 198, 0.4);
+        }
+
+        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #50d4e0 0%, #6aeef5 100%);
+            box-shadow: 0 0 12px rgba(50, 184, 198, 0.6), 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #208c8d transparent;
+        }
+
+        [data-theme="dark"] * {
+            scrollbar-color: #32b8c6 transparent;
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;
+            background: var(--bg-color);
+            background-attachment: fixed;
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.15) rotate(180deg);
+            box-shadow: 0 8px 28px var(--shadow-color), 0 0 20px rgba(32, 140, 141, 0.3);
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-toggle::before {
+            content: var(--theme-icon);
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Title Page */
+        .title-page {
+            text-align: center;
+            animation: fadeIn 1s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .title-page.hidden {
+            display: none;
+        }
+
+        .title-page h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
+            cursor: default;
+        }
+
+        .title-page h1:hover {
+            transform: scale(1.03);
+            text-shadow: 0 0 20px var(--neon-primary), 0 0 30px var(--neon-primary), 0 4px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 3px;
+            color: var(--neon-primary);
+        }
+
+        .title-page .author {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-style: normal;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: default;
+        }
+
+        .title-page .author:hover {
+            transform: scale(1.05) rotate(-2deg);
+            color: var(--accent-color);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-page .theme-note {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 50px;
+            max-width: 600px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            font-style: italic;
+            cursor: default;
+        }
+
+        .title-page .theme-note:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            background: rgba(32, 140, 141, 0.05);
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+
+        /* Begin Reading Button */
+        .begin-btn {
+            font-family: 'Playfair Display', serif;
+            display: inline-block;
+            padding: 18px 48px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--bg-color);
+            background: var(--accent-color);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px var(--shadow-color);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .begin-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .begin-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 12px 40px var(--shadow-color), 0 0 30px var(--neon-primary), 0 0 50px var(--neon-primary);
+            background: linear-gradient(135deg, var(--accent-color) 0%, #26b8a0 100%);
+        }
+
+        .begin-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .begin-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Poet Bio Page */
+
+/* Poet photo styles removed as per user request */
+
+        .poet-bio-page {
+            text-align: center;
+            animation: slideIn 0.6s ease;
+        }
+
+        .poet-bio-page.hidden {
+            display: none;
+        }
+
+        .poet-bio-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--neon-alternate);
+        }
+
+        .poet-bio-title:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px var(--neon-alternate), 0 0 30px var(--neon-alternate);
+            color: var(--neon-alternate);
+        }
+
+        .bio-card {
+            background: var(--surface-color);
+            padding: 45px 40px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-color), 0 0 20px rgba(157, 0, 255, 0.1);
+            margin-bottom: 40px;
+            transition: all 0.4s ease;
+            text-align: left;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 50px var(--shadow-color), 0 0 40px var(--neon-alternate), 0 0 60px rgba(157, 0, 255, 0.2);
+            border-color: var(--neon-alternate);
+        }
+
+        .poet-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .poet-name:hover {
+            color: var(--neon-primary);
+            text-shadow: 0 0 15px var(--neon-primary);
+        }
+
+        .poet-dates {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .poet-profession {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .bio-separator {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-secondary), var(--neon-primary));
+            margin: 25px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-secondary);
+        }
+
+        .bio-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            text-align: justify;
+            transition: all 0.3s ease;
+        }
+
+        .bio-text:hover {
+            transform: translateX(4px);
+            color: var(--accent-color);
+        }
+
+        .bio-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .highlight-item {
+            background: rgba(32, 140, 141, 0.08);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--neon-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(5px);
+            background: rgba(32, 140, 141, 0.15);
+            box-shadow: 0 0 15px var(--neon-secondary);
+            border-left-color: var(--neon-accent);
+        }
+
+        .highlight-label {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .highlight-value {
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        /* Progress Dots */
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-dot:hover {
+            opacity: 0.6;
+            transform: scale(1.3);
+        }
+
+        .progress-dot.active {
+            background: var(--neon-primary);
+            opacity: 1;
+            box-shadow: 0 0 15px var(--neon-primary), 0 0 25px var(--neon-primary);
+            transform: scale(1.4);
+        }
+
+        /* Stanza Page */
+        .stanza-page {
+            text-align: center;
+            animation: slideIn 0.6s ease;
+        }
+
+        .stanza-page.hidden {
+            display: none;
+        }
+
+        .stanza-number {
+            font-family: 'Satisfy', cursive;
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: 400;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            cursor: default;
+        }
+
+        .stanza-number:hover {
+            transform: scale(1.08);
+            text-shadow: 0 0 15px var(--neon-primary), 0 0 25px var(--neon-primary);
+            letter-spacing: 2px;
+            color: var(--neon-primary);
+        }
+
+        .stanza-content {
+            background: var(--surface-color);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .stanza-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 50px var(--shadow-color), 0 0 40px var(--neon-secondary), 0 0 60px rgba(57, 255, 20, 0.2);
+            border-color: var(--neon-secondary);
+        }
+
+        .line {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text-color);
+            margin: 10px 0;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+            padding: 4px 12px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .line:hover {
+            transform: scale(1.02) translateX(8px);
+            color: var(--accent-color);
+            background: rgba(32, 140, 141, 0.08);
+            text-shadow: 0 0 10px var(--neon-secondary);
+            padding-left: 20px;
+        }
+
+        .line:hover::before {
+            content: '→';
+            position: absolute;
+            left: 4px;
+            opacity: 0.6;
+            animation: slideArrow 0.6s ease infinite;
+        }
+
+        @keyframes slideArrow {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(4px); }
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color-solid);
+            transform: scale(1.08) translateY(-2px);
+            border-color: var(--neon-primary);
+            box-shadow: 0 8px 20px rgba(32, 140, 141, 0.3), 0 0 20px var(--neon-primary), 0 0 30px var(--neon-primary);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn:disabled:hover {
+            background: var(--surface-color);
+            color: var(--text-color);
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+
+        /* Attribution */
+        .attribution {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            cursor: default;
+        }
+
+        .attribution:hover {
+            opacity: 1;
+            transform: scale(1.05) rotate(1deg);
+            color: var(--neon-accent);
+            text-shadow: 0 0 15px var(--neon-accent), 0 2px 12px rgba(255, 0, 110, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Falling Leaves Animation */
+        .leaf {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background: var(--leaf-color);
+            border-radius: 0 100% 0 100%;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title-page h1 {
+                font-size: 2.5rem;
+            }
+
+            .title-page .author {
+                font-size: 1.4rem;
+            }
+
+            .begin-btn {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+            }
+
+            .line {
+                font-size: 1.2rem;
+            }
+
+            .stanza-content {
+                padding: 35px 25px;
+            }
+
+            .bio-card {
+                padding: 30px 20px;
+            }
+
+            .poet-name {
+                font-size: 1.8rem;
+            }
+
+            .poet-bio-title {
+                font-size: 2.2rem;
+            }
+
+            .bio-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                width: 48px;
+                height: 48px;
+                top: 16px;
+                right: 16px;
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+
+    <!-- Falling Leaves -->
+    <div id="leavesContainer"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Title Page -->
+        <div class="title-page" id="titlePage">
+            <h1>On Killing a Tree</h1>
+            <p class="author">by Gieve Patel</p>
+            <p class="theme-note">"Environmental conservation and the resilience of nature"</p>
+            <button class="begin-btn" id="beginBtn">Begin Reading</button>
+        </div>
+
+        <!-- Poet Bio Page -->
+        <div class="poet-bio-page hidden" id="poetBio">
+            <div class="poet-bio-title">About the Poet</div>
+            <div class="bio-card">
+                <div class="poet-name">Dr. Gieve Patel</div>
+                <div class="poet-dates">(born 1940)</div>
+                <div class="poet-profession">General Practitioner, Poet &amp; Playwright from Mumbai</div>
+                
+                <div class="bio-separator"></div>
+                
+                <div class="bio-text">
+                    Dr. Gieve Patel is a renowned Indian poet, playwright, and practicing physician based in Mumbai. Born in 1940, he studied medicine at Grant Medical College and has maintained a career as a general practitioner while pursuing his passion for literature. His unique background combining medicine and art brings a distinctive sensibility to his work.
+                </div>
+                
+                <div class="bio-text">
+                    Patel's poetry is known for its profound connection to nature, the environment, and the human condition. His medical training provides precision and deep understanding of the body and mortality, which permeates his literary work. He has published several collections of poetry and plays, earning numerous accolades for his contributions to Indian English literature.
+                </div>
+                
+                <div class="bio-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-label">Education</div>
+                        <div class="highlight-value">St. Xavier's High School, Grant Medical College</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-label">Themes</div>
+                        <div class="highlight-value">Environmental conservation, Nature &amp; ecology, Human condition</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-label">Notable Works</div>
+                        <div class="highlight-value">Poems (1966), How Does a Poem Mean, Mister Behemian</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="goToStanza(1)"></div>
+                <div class="progress-dot" onclick="goToStanza(2)"></div>
+                <div class="progress-dot" onclick="goToStanza(3)"></div>
+                <div class="progress-dot" onclick="goToStanza(4)"></div>
+                <div class="progress-dot" onclick="goToConclusion()"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToTitle()">Back</button>
+                <button class="nav-btn" onclick="goToStanza(1)">Continue Reading</button>
+            </div>
+        </div>
+
+
+
+        <!-- Stanza Pages -->
+        
+        <!-- Conclusion / Theme Card -->
+        <div class="theme-conclusion-page hidden" id="conclusionPage">
+            <div class="theme-conclusion-title">The Message: Reflections on 'On Killing a Tree'</div>
+            <div class="theme-conclusion-card">
+                <div class="theme-section">
+                    <div class="conclusion-subtitle">Understanding the Message of 'On Killing a Tree'</div>
+                    <div class="conclusion-main-msg">
+                        Through 'On Killing a Tree,' Gieve Patel masterfully reveals the systematic brutality required to destroy something that takes years to grow. The poem transcends simple environmental commentary to become a meditation on violence, resilience, and the hidden vulnerabilities of life itself.
+                    </div>
+                </div>
+                <div class="theme-section">
+                    <div class="thematic-head">Key Themes</div>
+                    <ul class="theme-list">
+                        <li><b>Slow Destruction vs. Quick Violence:</b> The poem emphasizes that true destruction requires patience, systematic effort, and complete removal of life's source—a metaphor for environmental devastation.</li>
+                        <li><b>Nature's Resilience and Fragility:</b> Despite surface damage, the tree regenerates. But when the roots are destroyed, recovery becomes impossible—revealing nature's dual capacity for resilience and vulnerability.</li>
+                        <li><b>The Hidden Source of Life:</b> Focusing on the roots—the hidden, most sensitive part—Patel reveals the invisible foundation of all life that lies beneath the surface.</li>
+                        <li><b>Human Responsibility:</b> The poem indicts human indifference and challenges us to recognize the gravity of our environmental choices and their consequences.</li>
+                    </ul>
+                </div>
+                <div class="theme-section">
+                    <div class="thematic-head">Discussion Points</div>
+                    <ul class="discussion-list">
+                        <li>What does "killing" the tree symbolize in our relationship with nature?</li>
+                        <li>How does the poet's medical background influence the clinical precision of destruction described?</li>
+                        <li>What is the significance of focusing on the root system as the ultimate target?</li>
+                        <li>How does the poem's message apply to modern environmental challenges?</li>
+                        <li>What personal responsibility do we have toward environmental conservation?</li>
+                    </ul>
+                </div>
+                <div class="theme-section closing">
+                    <div class="conclusion-closing-msg">In an age of rapid deforestation and environmental crisis, <span class="neon">'On Killing a Tree'</span> remains profoundly relevant. It calls us not just to appreciate nature's beauty, but to recognize our duty as custodians of life. Every tree, every ecosystem, every living thing requires our conscious protection and respect.</div>
+                </div>
+            </div>
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot" onclick="goToPoetBio()"></div>
+                <div class="progress-dot" onclick="goToStanza(1)"></div>
+                <div class="progress-dot" onclick="goToStanza(2)"></div>
+                <div class="progress-dot" onclick="goToStanza(3)"></div>
+                <div class="progress-dot" onclick="goToStanza(4)"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToStanza(4)">Previous</button>
+                <button class="nav-btn" onclick="showCredits()">Credits</button>
+            </div>
+        </div>
+
+        <div class="stanza-page hidden" id="stanza1">
+            <div class="stanza-number">Stanza 1</div>
+            <div class="stanza-content">
+                <div class="line">It takes much time to kill a tree,</div>
+                <div class="line">Not a simple jab of the knife</div>
+                <div class="line">Will do it. It has grown</div>
+                <div class="line">Slowly consuming the earth,</div>
+                <div class="line">Rising out of it, feeding</div>
+                <div class="line">Upon its crust, absorbing</div>
+                <div class="line">Years of sunlight, air, water,</div>
+                <div class="line">And out of its leprous hide</div>
+                <div class="line">Sprouting leaves.</div>
+            </div>
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot" onclick="goToPoetBio()"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="goToStanza(2)"></div>
+                <div class="progress-dot" onclick="goToStanza(3)"></div>
+                <div class="progress-dot" onclick="goToStanza(4)"></div>
+                <div class="progress-dot" onclick="goToConclusion()"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToPoetBio()">Back</button>
+                <button class="nav-btn" onclick="goToStanza(2)">Next</button>
+            </div>
+        </div>
+
+        <div class="stanza-page hidden" id="stanza2">
+            <div class="stanza-number">Stanza 2</div>
+            <div class="stanza-content">
+                <div class="line">So hack and chop</div>
+                <div class="line">But this alone wont do it.</div>
+                <div class="line">Not so much pain will do it.</div>
+                <div class="line">The bleeding bark will heal</div>
+                <div class="line">And from close to the ground</div>
+                <div class="line">Will rise curled green twigs,</div>
+                <div class="line">Miniature boughs</div>
+                <div class="line">Which if unchecked will expand again</div>
+                <div class="line">To former size.</div>
+            </div>
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot" onclick="goToPoetBio()"></div>
+                <div class="progress-dot" onclick="goToStanza(1)"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="goToStanza(3)"></div>
+                <div class="progress-dot" onclick="goToStanza(4)"></div>
+                <div class="progress-dot" onclick="goToConclusion()"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToStanza(1)">Previous</button>
+                <button class="nav-btn" onclick="goToStanza(3)">Next</button>
+            </div>
+        </div>
+
+        <div class="stanza-page hidden" id="stanza3">
+            <div class="stanza-number">Stanza 3</div>
+            <div class="stanza-content">
+                <div class="line">No,</div>
+                <div class="line">The root is to be pulled out -</div>
+                <div class="line">Out of the anchoring earth;</div>
+                <div class="line">It is to be roped, tied,</div>
+                <div class="line">And pulled out - snapped out</div>
+                <div class="line">Or pulled out entirely,</div>
+                <div class="line">Out from the earth-cave,</div>
+                <div class="line">And the strength of the tree exposed,</div>
+                <div class="line">The source, white and wet,</div>
+                <div class="line">The most sensitive, hidden</div>
+                <div class="line">For years inside the earth.</div>
+            </div>
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot" onclick="goToPoetBio()"></div>
+                <div class="progress-dot" onclick="goToStanza(1)"></div>
+                <div class="progress-dot" onclick="goToStanza(2)"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="goToStanza(4)"></div>
+                <div class="progress-dot" onclick="goToConclusion()"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToStanza(2)">Previous</button>
+                <button class="nav-btn" onclick="goToStanza(4)">Next</button>
+            </div>
+        </div>
+
+        <div class="stanza-page hidden" id="stanza4">
+            <div class="stanza-number">Stanza 4 (Final)</div>
+            <div class="stanza-content">
+                <div class="line">Then the matter</div>
+                <div class="line">Of scorching and choking</div>
+                <div class="line">In sun and air,</div>
+                <div class="line">Browning, hardening,</div>
+                <div class="line">Twisting, withering,</div>
+                <div class="line">And then it is done.</div>
+            </div>
+            <div class="progress-dots">
+                <div class="progress-dot" onclick="goToTitle()"></div>
+                <div class="progress-dot" onclick="goToPoetBio()"></div>
+                <div class="progress-dot" onclick="goToStanza(1)"></div>
+                <div class="progress-dot" onclick="goToStanza(2)"></div>
+                <div class="progress-dot" onclick="goToStanza(3)"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot" onclick="goToConclusion()"></div>
+                <div class="progress-dot" onclick="showCredits()"></div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="goToStanza(3)">Previous</button>
+                <button class="nav-btn" onclick="goToConclusion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Attribution -->
+        
+        <div class="attribution">
+            Made By Subhash &amp; Nishanth
+        </div>
+    </div>
+
+    <style>
+        /* THEME-BASED CONCLUSION CARD STYLES */
+        .theme-conclusion-page {
+            text-align: center;
+            animation: slideIn 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+        .theme-conclusion-page.hidden { display: none; }
+        .theme-conclusion-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.9rem;
+            color: var(--neon-accent);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 14px var(--neon-accent), 0 0 25px var(--neon-alternate), 0 2px 8px var(--shadow-color);
+            transition: all 0.3s;
+        }
+        .theme-conclusion-title:hover {
+            color: var(--neon-primary);
+            text-shadow: 0 0 28px var(--neon-primary), 0 0 40px var(--neon-primary), 0 2px 8px var(--shadow-color);
+        }
+        .theme-conclusion-card {
+            background: var(--surface-color);
+            border-radius: 19px;
+            border: 3px solid var(--neon-accent);
+            box-shadow: 0 0 32px 0px var(--neon-primary), 0 3px 24px 4px var(--shadow-color) inset;
+            padding: 45px 38px;
+            margin-bottom: 28px;
+            max-width: 750px;
+            margin: 0 auto 38px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 38px;
+            transition: border-color 0.3s, box-shadow 0.37s cubic-bezier(0.16,1,0.3,1);
+        }
+        .theme-conclusion-card:hover {
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 42px 10px var(--neon-primary), 0 3px 44px 16px var(--neon-accent) inset;
+            transform: translateY(-2px) scale(1.0125);
+        }
+        .theme-section {
+            margin-bottom: 12px;
+        }
+        .conclusion-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 18px;
+            text-shadow: 0 0 7px var(--neon-accent), 0 2px 7px var(--shadow-color);
+        }
+        .conclusion-main-msg {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2rem;
+            line-height: 1.94;
+            color: var(--text-color);
+            text-align: justify;
+            margin-bottom: 12px;
+            padding: 6px 0;
+        }
+        .thematic-head {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--neon-secondary);
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 13px var(--neon-secondary);
+            font-weight: 700;
+        }
+        .theme-list,
+        .discussion-list {
+            margin-left: 0;
+            padding-left: 0;
+            margin-bottom: 0;
+            text-align: left;
+            list-style: none;
+        }
+        .theme-list li,
+        .discussion-list li {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.09rem;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: rgba(57, 255, 20, 0.11);
+            border-radius: 9px;
+            margin-bottom: 10px;
+            padding: 12px 16px;
+            margin-top: 0;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.03);
+            transition: background 0.24s, color 0.16s;
+        }
+        .theme-list li:hover,
+        .discussion-list li:hover {
+            background: rgba(0, 255, 200, 0.16);
+            color: var(--accent-color);
+            box-shadow: 0 0 14px var(--neon-secondary);
+        }
+        .theme-list li b {
+            color: var(--neon-accent);
+            font-weight: 700;
+        }
+        .closing .conclusion-closing-msg {
+            margin-top: 1.35rem;
+            font-size: 1.1rem;
+            font-family: 'Crimson Text', serif;
+            color: var(--text-color);
+            line-height: 1.82;
+            background: linear-gradient(95deg, var(--neon-secondary) 0%, var(--surface-color) 75%);
+            border-radius: 9px;
+            padding: 18px 15px;
+            box-shadow: 0 0 12px var(--neon-primary);
+        }
+        .conclusion-closing-msg .neon {
+            color: var(--neon-primary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 0 16px var(--neon-primary), 0 0 20px var(--neon-primary);
+        }
+        @media (max-width: 900px) {
+            .theme-conclusion-title { font-size: 2.1rem; }
+            .theme-conclusion-card { padding: 22px 8px; }
+        }
+        @media (max-width: 600px) {
+            .theme-conclusion-title { font-size: 1.6rem; }
+            .theme-conclusion-card { padding: 12px 1px; }
+        }
+    </style>
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // In-memory theme state (no localStorage in sandbox)
+        let currentTheme = 'light';
+        
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', currentTheme);
+            
+            // Add a small rotation animation on click
+            themeToggle.style.transform = 'rotate(360deg) scale(1.2)';
+            setTimeout(() => {
+                themeToggle.style.transform = '';
+            }, 300);
+        });
+
+        // Navigation State
+        let currentPage = 'title';
+
+        // Begin Reading Button - Fixed
+        const beginBtn = document.getElementById('beginBtn');
+        beginBtn.addEventListener('click', () => {
+            // Add click ripple effect
+            beginBtn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                // Hide title page first
+                document.getElementById('titlePage').style.opacity = '0';
+                document.getElementById('titlePage').style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    goToPoetBio();
+                    beginBtn.style.transform = '';
+                }, 300);
+            }, 150);
+        });
+
+        // Navigation Functions
+        function hideAllPages() {
+    document.getElementById('conclusionPage')?.classList.add('hidden');
+            const titlePage = document.getElementById('titlePage');
+            titlePage.classList.add('hidden');
+            titlePage.style.opacity = '1';
+            titlePage.style.transform = 'translateY(0)';
+            
+            document.getElementById('poetBio').classList.add('hidden');
+            document.getElementById('stanza1').classList.add('hidden');
+            document.getElementById('stanza2').classList.add('hidden');
+            document.getElementById('stanza3').classList.add('hidden');
+            document.getElementById('stanza4').classList.add('hidden');
+        }
+
+        function goToPoetBio() {
+    document.getElementById('conclusionPage')?.classList.add('hidden');
+            hideAllPages();
+            
+            const poetBioPage = document.getElementById('poetBio');
+            poetBioPage.classList.remove('hidden');
+            poetBioPage.style.opacity = '0';
+            poetBioPage.style.transform = 'translateX(50px)';
+            
+            setTimeout(() => {
+                poetBioPage.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                poetBioPage.style.opacity = '1';
+                poetBioPage.style.transform = 'translateX(0)';
+            }, 50);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentPage = 'poetBio';
+        }
+
+        function goToStanza(stanzaNumber) {
+    document.getElementById('conclusionPage')?.classList.add('hidden');
+            hideAllPages();
+            
+            // Show selected stanza with smooth animation
+            const stanzaElement = document.getElementById('stanza' + stanzaNumber);
+            stanzaElement.classList.remove('hidden');
+            stanzaElement.style.opacity = '0';
+            stanzaElement.style.transform = 'translateX(50px)';
+            
+            // Trigger animation
+            setTimeout(() => {
+                stanzaElement.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                stanzaElement.style.opacity = '1';
+                stanzaElement.style.transform = 'translateX(0)';
+            }, 50);
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            currentPage = 'stanza' + stanzaNumber;
+        }
+
+        function goToTitle() {
+    document.getElementById('conclusionPage')?.classList.add('hidden');
+            hideAllPages();
+            
+            // Show title page
+            document.getElementById('titlePage').classList.remove('hidden');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            currentPage = 'title';
+        }
+
+        function goToConclusion() {
+    hideAllPages();
+    const conclusion = document.getElementById('conclusionPage');
+    conclusion.classList.remove('hidden');
+    conclusion.style.opacity = '0';
+    conclusion.style.transform = 'translateX(50px)';
+    setTimeout(() => {
+        conclusion.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+        conclusion.style.opacity = '1';
+        conclusion.style.transform = 'translateX(0)';
+    }, 42);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    currentPage = 'conclusion';
+}
+
+function showCredits() {
+            // Scroll to bottom to show attribution
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        // Falling Leaves Animation
+        function createLeaves() {
+            const leavesContainer = document.getElementById('leavesContainer');
+            const numberOfLeaves = 15;
+            
+            for (let i = 0; i < numberOfLeaves; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                
+                // Random horizontal position
+                leaf.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration (slower fall)
+                const duration = 15 + Math.random() * 20;
+                leaf.style.animationDuration = duration + 's';
+                
+                // Random delay
+                leaf.style.animationDelay = Math.random() * 10 + 's';
+                
+                // Random size
+                const size = 15 + Math.random() * 15;
+                leaf.style.width = size + 'px';
+                leaf.style.height = size + 'px';
+                
+                leavesContainer.appendChild(leaf);
+            }
+        }
+
+        // Initialize leaves on load
+        window.addEventListener('load', createLeaves);
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                if (currentPage === 'title') {
+                    goToPoetBio();
+                } else if (currentPage === 'poetBio') {
+                    goToStanza(1);
+                } else if (currentPage.startsWith('stanza')) {
+                    const currentStanza = parseInt(currentPage.replace('stanza', ''));
+                    if (currentStanza < 4) {
+                        goToStanza(currentStanza + 1);
+                    }
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentPage === 'poetBio') {
+                    goToTitle();
+                } else if (currentPage.startsWith('stanza')) {
+                    const currentStanza = parseInt(currentPage.replace('stanza', ''));
+                    if (currentStanza > 1) {
+                        goToStanza(currentStanza - 1);
+                    } else {
+                        goToPoetBio();
+                    }
+                }
+            } else if (e.key === 'Home') {
+                goToTitle();
+            }
+        });
+    </script>
+</body>
+</html>
